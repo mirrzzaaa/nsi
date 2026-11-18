@@ -1,0 +1,209 @@
+<?php
+//pr($items);
+$dataChild = $this->Html->link('MOU', ['action' => 'index'], ['full_base'=>true]);
+?>
+
+<?= $this->Krs->breadcrumb_('Master', $dataChild, 'Buat') ?> 
+<?= $this->Form->create($mouse, ['data-parsley-validate' => 'true']) ?>
+<?= $this->Form->control('is_create', ['type' => 'hidden', 'value' => $getUser->id]); ?>
+
+<div class="row mb-3">
+    <div class="col-md-8">
+        <div class="card border-0">
+            <div class="card-header bg-info p-3 h6 m-0 d-flex align-items-center">
+                <i class="fas fa-file-alt fa-lg me-2 text-gray text-opacity-50"></i>
+                MOU
+            </div>  
+            <div class="card-body">
+                <div class="row">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label for="" class="form-label">No. MOU <span class="text-danger">*</span></label>
+                            <?= $this->Form->control('code', ['label' => false, 'class' => 'form-control', 'placeholder' => 'No MOU...', 'data-parsley-error-message' => "No. MOU tidak boleh kosong !", 'required' => true]); ?>
+                        </div>
+                        <div class="col-md-8 mb-3">
+                            <label for="" class="form-label">Customer <span class="text-danger">*</span></label>
+                            <?= $this->Form->control('customer_id', ['label' => false, 'class' => 'form-control slc', 'data-placeholder' => 'Cari customer...', 'empty' => 'Cari customer...', 'options' => $customers, 'data-parsley-required' => true, 'data-parsley-error-message' => 'Customer produk harus dipilih !', 'data-parsley-errors-container' => '#check-cs']); ?>
+                            <div id="check-cs"></div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="" class="form-label">PIC <span class="text-danger">*</span></label>
+                            <?= $this->Form->control('pic_name', ['label' => false, 'class' => 'form-control', 'placeholder' => 'Nama pic...', 'data-parsley-error-message' => "Nama pic tidak boleh kosong !", 'required' => true]); ?>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="" class="form-label">Email</label>
+                            <?= $this->Form->control('pic_email', ['label' => false, 'class' => 'form-control', 'placeholder' => 'Email pic...']); ?>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="" class="form-label">Telepon <span class="text-danger">*</span></label>
+                            <?= $this->Form->control('pic_telp', ['label' => false, 'class' => 'form-control telp', 'placeholder' => 'Telepon pic...', 'data-parsley-error-message' => "Telepon pic tidak boleh kosong !", 'required' => true]); ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card border-0">
+            <div class="card-header bg-info p-3 h6 m-0 d-flex align-items-center">
+                <i class="fas fa-calendar-alt fa-lg me-2 text-gray text-opacity-50"></i>
+                Periode
+            </div>
+            <div class="card-body">
+                <div class="form-group mb-3">
+                    <label for="" class="form-label">Tgl. Kontrak <span class="text-danger">*</span></label>
+                    <?= $this->Form->control('date_contracts', ['label' => false, 'class' => 'form-control tgl', 'placeholder' => 'Tgl kontrak...', 'value' => date('d-m-Y'), 'readonly', 'data-parsley-error-message' => "Tgl kontrak tidak boleh kosong !", 'required' => true]); ?>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="" class="form-label">Tgl. Expired <span class="text-danger">*</span></label>
+                    <?= $this->Form->control('date_expireds', ['label' => false, 'class' => 'form-control tgl', 'placeholder' => 'Tgl expired...', 'readonly', 'data-parsley-error-message' => "Tgl expired tidak boleh kosong !", 'required' => true]); ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card border-0">
+    <div class="card-header bg-info p-3 h6 m-0 d-flex align-items-center">
+        <i class="fa fa-briefcase-medical fa-lg me-2 text-gray text-opacity-50"></i>
+        Produk
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover table-striped mouse_items">
+                <thead class="thead-dark">
+                    <tr class="text-center text-white bg-black">
+                        <th width="30%">Produk</th>
+                        <th width="20%">Harga</th>
+                        <th width="10%">Per/Unit</th>
+                        <th width="35%">Keterangan</th>
+                        <th class="actions text-center" width="5%"><?= __('Actions') ?></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><?= $this->Form->control('mouse_items[0][item_id]', ['label' => false, 'class' => 'form-control slc', 'data-placeholder' => 'Cari produk...', 'empty' => 'Cari produk...', 'options' => $items, 'data-parsley-required' => true, 'data-parsley-error-message' => 'Produk harus dipilih !', 'data-parsley-errors-container' => '#check-produk']); ?><div id="check-produk"></div>
+                        </td>
+                        <td><?= $this->Form->control('mouse_items[0][price]', ['label' => false, 'class' => 'form-control price nom text-end', 'placeholder' => '0', 'data-parsley-required' => true, 'data-parsley-error-message' => 'Harga produk harus diisi !']); ?></td>
+                        <td><?= $this->Form->control('mouse_items[0][unit]', ['label' => false, 'class' => 'form-control unit', 'placeholder' => 'Unit...', 'readonly', 'data-parsley-required' => true, 'data-parsley-error-message' => 'Unit produk harus diisi !']); ?></td>
+                        <td><?= $this->Form->control('mouse_items[0][description]', ['label' => false, 'class' => 'form-control', 'placeholder' => 'Deskripsi...']); ?></td>
+                        <td class="text-center"><button class="btn btn-inverse btn-sm addRow" id="" type="button"><i class="fas fa-plus-square"></i></button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-footer bg-yellow d-flex p-3">
+        <?php
+        echo $this->Form->button('Simpan', ['class' => 'btn btn-primary  ms-auto', 'type' => 'button', 'escape' => false, 'id' => 'btn-add']);
+        ?>
+    </div>
+</div>
+
+<?= $this->Form->end() ?>
+
+<script>
+    const rupiah = (number) => {
+        return new Intl.NumberFormat("id-ID").format(number);
+    }
+
+    $(document).ready(function() {
+        var confirmTitle = "Apakah anda ingin menyimpan data tersebut ?";
+        var formAction = "<?php echo $this->Url->build(['prefix' => 'Master', 'controller' => 'Mouses', 'action' => 'add'], ['fullBase' => true]); ?>";
+        handleFormConfirmSubmitValid('UserAddForm', 'btn-add', confirmTitle, formAction);
+
+        $('.npwp').mask('999.999.999.9-999.999', {
+            autoclear: false
+        });
+
+        $('.telp').mask('999999999999', {
+            autoclear: false
+        });
+
+        $('.slc').select2().on('select2:select', function(e) {
+            var data = e.params.data;
+            var ids = data.id;
+            $.ajax({
+                url: "<?php echo $this->url->build(['prefix' => 'Master', 'controller' => 'WarehouseStocks', 'action' => 'setitem']); ?>",
+                method: "get",
+                data: {
+                    id: ids
+                },
+                success: function(data) {
+                    if (data) {
+                        $('.unit').val(data.unit);
+                        $('.price').val(rupiah(data.selling_price));
+                    }
+                }, 
+                error: function(err) {
+                    console.log(err, 'eror get data');
+                }
+            });
+        });
+
+        $('.tgl').datepicker({
+            format: 'dd-mm-yyyy',
+            autoclose: true,
+            todayHighlight: true,
+        });
+
+        $('input.nom').autoNumeric({
+            aSep: '.',
+            aDec: ','
+        });
+
+        var counter = ($('.mouse_items tr').length) - 1;
+        $(".addRow").on("click", function(e) {
+            if (e.originalEvent.defaultPrevented) return;
+
+            var cols = '';
+            cols += '<tr>'
+            cols += '<td><select class="form-control slc" name="mouse_items[' + counter + '][item_id]" data-parsley-required="true" data-parsley-error-message="Produk harus dipilih !" data-parsley-errors-container="#check-produk" data-placeholder="Cari produk..."><option value=""></option><?php foreach ($items as $key => $value) : ?><option value="<?= $key ?>"><?= $value ?></option><?php endforeach; ?></select><div id="check-produk"></div></td>';
+            cols += '<td><input type="text" name="mouse_items[' + counter + '][price]" class="form-control nom prices text-end" placeholder="0" data-parsley-required="true" data-parsley-error-message="Harga harus diisi !"></td>';
+            cols += '<td><input type="text" name="mouse_items[' + counter + '][unit]" class="form-control units" placeholder="Unit..." readonly></td>';
+            cols += '<td><input type="text" name="mouse_items[' + counter + '][description]" class="form-control" placeholder="Deskripsi..."></td>';
+            cols += '<td class="text-center"><button class="btn btn-pink btn-sm" id="del" type="button"><i class="far fa-trash-alt"></i></button></td>';
+            cols += '</tr>';
+
+            // nambah baris didalam tabel
+            $(".mouse_items>tbody").append(cols);
+
+            $('.slc').select2().on('select2:select', function(e) {
+                var data = e.params.data;
+                var ids = data.id;
+                var tr = $(this).parent().parent();
+                $.ajax({
+                    url: "<?php echo $this->url->build(['prefix' => 'Master', 'controller' => 'WarehouseStocks', 'action' => 'setitem']); ?>",
+                    method: "get",
+                    data: {
+                        id: ids
+                    },
+                    success: function(data) {
+                        if (data) {
+                            tr.find(".units").val(data.unit);
+                            tr.find(".prices").val(rupiah(data.selling_price));
+                        }
+                    }, 
+                    error: function(err) {
+                        console.log(err, 'eror get data');
+                    }
+                });
+            });
+
+            $('input.nom').autoNumeric({
+                aSep: '.',
+                aDec: ','
+            });
+
+
+            counter++;
+        });
+
+        // Javascript menghapus kalau di klik
+        $(document).on("click", "#del", function(event) {
+            $(this).closest("tr").remove();
+            counter -= 1
+        });
+    });
+</script>
